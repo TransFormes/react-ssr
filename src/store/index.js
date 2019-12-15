@@ -20,7 +20,7 @@ export const getIndexLists = ()=>{
 }
 //初始化数据，保存数据
 const initState = {
-    list: [{name:'你好',id: 0}]
+    list: []
 }
 //默认导出
 export default (state = initState,action)=>{

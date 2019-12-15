@@ -1,5 +1,19 @@
 const express = require('express');
 const app = express();
+// app.get('*',(req,res) =>{})
+app.get('/api/user/info',(req,res)=>{
+    res.header('Access-Control-Allow-Origin','*');
+    res.header('Content-Type','application/json;charset=uft-8');
+    res.header('Access-Control-Allow-Methods','GET,POST,OPTIONS');
+    let json = {
+        code: 200,
+        data:{
+            name: 'liuY',
+            age: '20'
+        }
+    }
+    res.json(json);
+})
 app.get('/api/index/list',(req,res)=>{
     res.header('Access-Control-Allow-Origin','*');
     res.header('Content-Type','application/json;charset=uft-8');
