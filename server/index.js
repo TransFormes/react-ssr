@@ -49,6 +49,8 @@ app.get('*',(req,res) =>{
                 </body>
             </html>
         `);
+    }).catch(()=>{
+        res.end('错误页面');
     })
 })
 app.listen('3333',()=>{
