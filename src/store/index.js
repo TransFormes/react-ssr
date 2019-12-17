@@ -1,4 +1,4 @@
-import axios from 'axios';
+import { instance } from './../tool/request';
 
 
 //定义type类型
@@ -13,7 +13,7 @@ const getIndexList = list =>({
 //获取数据
 export const getIndexLists = ()=>{
     return (dispath)=>{
-        return axios.get('http://localhost:3030/api/index/list').then(res =>{
+        return instance.get('http://localhost:3030/api/index/list').then(res =>{
             const { list } = res.data;
             dispath(getIndexList(list));
         })

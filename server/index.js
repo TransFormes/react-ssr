@@ -12,7 +12,7 @@ app.use(express.static('public'))
 app.get('*',(req,res) =>{
     //服务端也要包裹数据
     const promises = [];
-    routes.some(route => {
+    routes.filter(route => {
         const match = matchPath(req.path, route);
         if (match){
             const { loadData } = route.component;
@@ -50,7 +50,7 @@ app.get('*',(req,res) =>{
             </html>
         `);
     }).catch(()=>{
-        res.end('错误页面');
+        res.end('出错了');
     })
 })
 app.listen('3333',()=>{

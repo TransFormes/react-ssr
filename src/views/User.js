@@ -8,9 +8,9 @@ function User(props) {
 <h1>你好{props.userInfo.name},age{props.userInfo.age}</h1>
   </div>
 }
-User.loadData = (store)=>{
-    return store.dispatch(getUserInfos())
-}
+// User.loadData = (store)=>{
+//     return store.dispatch(getUserInfos())
+// }
 export default connect(state =>{
     console.log(state.user.userInfo)
     return {

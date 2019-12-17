@@ -1,4 +1,4 @@
-import axios from 'axios';
+import { instance } from './../tool/request';
 
 
 //定义type类型
@@ -13,7 +13,7 @@ const getUserInfo = data =>({
 //获取数据
 export const getUserInfos = ()=>{
     return (dispath)=>{
-        return axios.get('http://localhost:3030/api/user/info').then(res =>{
+        return instance.get('http://localhost:3030/api/user/info').then(res =>{
             const { data } = res.data;
             console.log('用户信息',data)
             dispath(getUserInfo(data));

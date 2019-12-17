@@ -15,5 +15,4 @@ const Page = (<Provider store={getClientStore()}>
         })}
     </BrowserRouter>
 </Provider>)
-const renderMethod = module.hot ? ReactDom.render : ReactDom.hydrate;
-renderMethod(Page,document.getElementById('root'));
+ReactDom.hydrate(Page,document.getElementById('root'));
