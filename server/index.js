@@ -12,20 +12,24 @@ app.use(express.static('public'))
 app.get('*',(req,res) =>{
     //服务端也要包裹数据
     const promises = [];
-    routes.filter(route => {
+    routes.some(route => {
         const match = matchPath(req.path, route);
         if (match){
             const { loadData } = route.component;
             // console.log(loadData)
             //一定要判断 不然有的没有这个属性 会报错
             if(loadData){
-                promises.push(loadData(store));
+                const promise = new Promise((resolve,reject)=>{
+                    loadData(store).then(resolve).catch(resolve);
+                })
+                promises.push(promise);
             }
         }
     });
     Promise.all(promises).then(()=>{
+      const context = {};
         const page = (<Provider store={store}>
-            <StaticRouter location={req.url}>
+            <StaticRouter location={req.url} context={context}>
                 {/* {App} */}
                 <Header></Header>
                 {routes.map(route =>{
@@ -34,6 +38,13 @@ app.get('*',(req,res) =>{
             </StaticRouter>
         </Provider>);
         const temp = renderToString(page);
+        console.log(context)
+        if(context.statusCode === '404'){
+          res.status(context.statusCode)
+        }
+        if(context.action === 'REPLACE'){
+          res.redirect(301,context.url)
+        }
         res.end(`
             <html>
                 <head>
@@ -50,7 +61,7 @@ app.get('*',(req,res) =>{
             </html>
         `);
     }).catch(()=>{
-        res.end('出错了');
+        res.end('错误页面');    
     })
 })
 app.listen('3333',()=>{

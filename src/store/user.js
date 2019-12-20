@@ -1,4 +1,5 @@
-import { instance } from './../tool/request';
+// import { instance } from './../tool/request';
+// import proxy from 'http-proxy-middleware';  
 
 
 //定义type类型
@@ -12,13 +13,15 @@ const getUserInfo = data =>({
 
 //获取数据
 export const getUserInfos = ()=>{
-    return (dispath)=>{
-        return instance.get('http://localhost:3030/api/user/info').then(res =>{
-            const { data } = res.data;
-            console.log('用户信息',data)
-            dispath(getUserInfo(data));
-        })
-    }
+  return (dispath,getState,$axios)=>{
+      return $axios.get('/api/user/info').then(res =>{
+          const { data } = res.data;
+          // console.log(list)
+          dispath(getUserInfo(data));
+      }).catch(err =>{
+        console.log(err)
+      })
+  }
 }
 //初始化数据，保存数据
 const initState = {
@@ -26,7 +29,6 @@ const initState = {
 }
 //默认导出
 export default (state = initState,action)=>{
-    console.log(action.type)
     switch(action.type){
         case GET_INDEX_LIST:
             const newState = {

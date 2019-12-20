@@ -3,6 +3,8 @@ import {Route} from 'react-router-dom';
 import Index from './views/Index';
 import About from './views/About';
 import User from './views/User';
+import NotFound from './views/NotFound';
+import './App.css'
 
 
 // export default (
@@ -15,19 +17,23 @@ export default [
     {
         path: '/',
         component: Index,
-        // exact: true,
+        exact: true,
         key: 'index'
     },
     {
         path: '/about',
         component: About,
-        // exact: true,
+        exact: true,
         key: 'about'
     },
     {
         path: '/user',
         component: User,
-        // exact: true,
+        exact: true,
         key: 'user'
     },
+    {
+      component: NotFound,
+      key: 'NotFound'
+    }
 ]
